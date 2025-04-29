@@ -1,81 +1,26 @@
-import { Button, Input, Table } from 'antd';
-import { useEffect, useState,useCallback, useMemo } from 'react';
-import { getData, postData, updateData } from '../services/apiService';
-import AddEditModal from '../components/Dashboard/AddEditModal';
-import axios from 'axios';
+import { Button } from "antd";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { getData, postData, updateData } from "../services/apiService";
+import AddEditModal from "../components/Dashboard/AddEditModal";
 import {
   MaterialReactTable,
   useMaterialReactTable,
-} from 'material-react-table';
-import { MenuItem } from '@mui/material';
-import { jsonData } from '../redux/materialData';
+} from "material-react-table";
+import { jsonData } from "../redux/materialData";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchRecords = useCallback(async () => {
     setLoading(true);
-    const jsonData = {
-      data: [
-        {
-          id: "1",
-          material: "hfghfj",
-          material_abbreviation: "gjhg",
-          manufacturing_process: "hjkghjg",
-          manufacturing_process_abbr: "hjhjg",
-          material_standard: "hbhjb",
-          length: "hjhbhj",
-          grade: "ytyu",
-          end_finish: "yuuygyug",
-          end_finish_abbreviation: "guyguy",
-          nps: "hbi",
-          schedule: "esed",
-          additional_requirement: "bjhbj",
-          additional_reg_abbreviation: "vychvj"
-        },
-        {
-          id: "2",
-          material: "sdfsdf",
-          material_abbreviation: "sdfsdf",
-          manufacturing_process: "sdfksdf",
-          manufacturing_process_abbr: "sdf",
-          material_standard: "sdfsdf",
-          length: "dsfsd",
-          grade: "sdfks",
-          end_finish: "sdfsd",
-          end_finish_abbreviation: "kdskjf",
-          nps: "sdfsdfsdf",
-          schedule: "sdfsdf",
-          additional_requirement: "sdfsd",
-          additional_reg_abbreviation: " sdfs"
-        },
-        {
-          id: "3",
-          material: "sdfsdf",
-          material_abbreviation: "sdfsdf",
-          manufacturing_process: "sdfksdf",
-          manufacturing_process_abbr: "sdf",
-          material_standard: "sdfsdf",
-          length: "dsfsd",
-          grade: "sdfks",
-          end_finish: "sdfsd",
-          end_finish_abbreviation: "kdskjf",
-          nps: "sdfsdfsdf",
-          schedule: "sdfsdf",
-          additional_requirement: "sdfsd",
-          additional_reg_abbreviation: " sdfs"
-        }
-      ],
-      status: true,
-      message: "successfully..."
-    };
+
     try {
-      const res = await getData('/get-material.php');
+      const res = await getData("/get-material.php");
       if (res) {
         // console.log("🚀 Full API Response -->", res);
 
@@ -102,7 +47,7 @@ const Dashboard = () => {
   useEffect(() => {
     console.log("Updated filteredData state:", filteredData);
   }, [filteredData]);
-  
+
   // const handleSearch = (e) => {
   //   const value = e.target.value;
   //   setSearchText(value);
@@ -125,10 +70,10 @@ const Dashboard = () => {
     setIsModalOpen(true);
   };
 
-  const handleEdit = (record) => {
-    setEditingRecord(record);
-    setIsModalOpen(true);
-  };
+  // const handleEdit = (record) => {
+  //   setEditingRecord(record);
+  //   setIsModalOpen(true);
+  // };
 
   const handleSubmit = async (values) => {
     try {
@@ -141,7 +86,7 @@ const Dashboard = () => {
             formData.append(key, values[key]);
           }
         }
-        await postData('/create-material.php', formData);
+        await postData("/create-material.php", formData);
       }
       setIsModalOpen(false);
       fetchRecords();
@@ -176,22 +121,49 @@ const Dashboard = () => {
   //   },
   // ];
 
-  const columns = useMemo(() => [
-    { accessorKey: 'id', header: 'ID', size: 20 },
-    { accessorKey: 'material', header: 'Material',},
-    { accessorKey: 'material_abbreviation', header: 'Material Abbreviation', size: 250 },
-    { accessorKey: 'manufacturing_process', header: 'Manufacturing Process', size: 250 },
-    { accessorKey: 'manufacturing_process_abbr', header: 'Manufacturing Process Abbreviation', size: 300 },
-    { accessorKey: 'material_standard', header: 'Material Standard' },
-    { accessorKey: 'length', header: 'Length' },
-    { accessorKey: 'grade', header: 'Grade' },
-    { accessorKey: 'end_finish', header: 'End Finish' },
-    { accessorKey: 'end_finish_abbreviation', header: 'End Finish Abbreviation',size: 250 },
-    { accessorKey: 'nps', header: 'NPS' },
-    { accessorKey: 'schedule', header: 'Schedule' },
-    { accessorKey: 'additional_requirement', header: 'Additional Requirement',size: 250 },
-    { accessorKey: 'additional_reg_abbreviation', header: 'Additional Reg Abbreviation',size: 300 },
-  ], []);
+  const columns = useMemo(
+    () => [
+      { accessorKey: "id", header: "ID", size: 20 },
+      { accessorKey: "material", header: "Material" },
+      {
+        accessorKey: "material_abbreviation",
+        header: "Material Abbreviation",
+        size: 250,
+      },
+      {
+        accessorKey: "manufacturing_process",
+        header: "Manufacturing Process",
+        size: 250,
+      },
+      {
+        accessorKey: "manufacturing_process_abbr",
+        header: "Manufacturing Process Abbreviation",
+        size: 300,
+      },
+      { accessorKey: "material_standard", header: "Material Standard" },
+      { accessorKey: "length", header: "Length" },
+      { accessorKey: "grade", header: "Grade" },
+      { accessorKey: "end_finish", header: "End Finish" },
+      {
+        accessorKey: "end_finish_abbreviation",
+        header: "End Finish Abbreviation",
+        size: 250,
+      },
+      { accessorKey: "nps", header: "NPS" },
+      { accessorKey: "schedule", header: "Schedule" },
+      {
+        accessorKey: "additional_requirement",
+        header: "Additional Requirement",
+        size: 250,
+      },
+      {
+        accessorKey: "additional_reg_abbreviation",
+        header: "Additional Reg Abbreviation",
+        size: 300,
+      },
+    ],
+    []
+  );
 
   console.log("filteredData--------->", filteredData);
   let metData = jsonData?.data;
@@ -199,7 +171,7 @@ const Dashboard = () => {
     columns,
     data: metData,
     state: { isLoading: loading },
-    enableColumnFilterModes: false, 
+    enableColumnFilterModes: false,
     initialState: { showColumnFilters: true },
     // filterFns: {
     //   customFilterFn: (row, id, filterValue) => {
@@ -209,10 +181,10 @@ const Dashboard = () => {
     // localization: {
     //   filterCustomFilterFn: 'Custom Filter Fn',
     // },
-  }); 
+  });
 
   return (
-    <div className="p-4" style={{padding: 4}}>
+    <div className="p-4" style={{ padding: 4 }}>
       <div className="flex justify-between mb-4">
         {/* <Input
           placeholder="Search..."
@@ -220,7 +192,7 @@ const Dashboard = () => {
           onChange={handleSearch}
           className="w-1/3"
         /> */}
-        <Button type="primary" onClick={handleAdd} style={{marginTop: 10}}>
+        <Button type="primary" onClick={handleAdd} style={{ marginTop: 10 }}>
           Add New
         </Button>
       </div>
@@ -236,9 +208,14 @@ const Dashboard = () => {
         />
       </div> */}
       <div>
-      <MaterialReactTable table={table}  enableStickyHeader={true} defaultColumn={{
-        size: "auto",
-      }}/>;
+        <MaterialReactTable
+          table={table}
+          enableStickyHeader={true}
+          defaultColumn={{
+            size: "auto",
+          }}
+        />
+        ;
       </div>
       <AddEditModal
         open={isModalOpen}
