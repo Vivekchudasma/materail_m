@@ -9,7 +9,7 @@ import {
 import { jsonData } from "../redux/materialData";
 
 const Dashboard = () => {
-  const [data, setData] = useState([]);
+  const [setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   // const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
