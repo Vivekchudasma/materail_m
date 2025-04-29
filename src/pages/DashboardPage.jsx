@@ -9,7 +9,7 @@ import {
 import { jsonData } from "../redux/materialData";
 
 const Dashboard = () => {
-  const [setData] = useState([]);
+  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   // const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -165,7 +165,7 @@ const Dashboard = () => {
     []
   );
 
-  console.log("filteredData--------->", filteredData);
+  console.log("filteredData--------->", filteredData, data);
   let metData = jsonData?.data;
   const table = useMaterialReactTable({
     columns,
